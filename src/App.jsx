@@ -18,7 +18,7 @@ const API_OPTIONS = {
 }
 
 const App = () => {
-  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   const [movieList, setMovieList] = useState([]);
@@ -48,6 +48,7 @@ const App = () => {
 
       const data = await response.json();
 
+
       if (data.Response === 'False') {
         setErrorMessage(data.Error || 'Failed to fetch movies');
         setMovieList([]);
@@ -55,7 +56,7 @@ const App = () => {
       }
 
       setMovieList(data.results || []);
-
+      console.log(movieList);
       if (query && data.results.length > 0) {
         await updateSearchCount(query, data.results[0]);
       }
@@ -122,6 +123,7 @@ const App = () => {
             ) : (
               <ul>
                 {movieList.map((movie) => (
+
                   <MovieCard key={movie.id} movie={movie} />
                 ))}
               </ul>
